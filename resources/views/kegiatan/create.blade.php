@@ -1,4 +1,5 @@
-<!-- <form method="POST" action="{{ route('kegiatan.store') }}" enctype="multipart/form-data">
+<!-- <form method="POST" action="
+    {{-- {{ route('kegiatan.store') }}" enctype="multipart/form-data"> --}}
     @csrf
 
     <input type="date" name="tanggal">
@@ -25,7 +26,7 @@
 
 @csrf
 
-<input type="date" name="tanggal" class="w-full border rounded p-2">
+<input type="date" name="tanggal" value="{{ date('Y-m-d')}}" readonly class="w-full border rounded p-2">
 <input type="text" name="uraian" placeholder="Uraian"
        class="w-full border rounded p-2">
 <input type="text" name="output" placeholder="Output"

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kegiatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class KegiatanController extends Controller
@@ -38,11 +39,11 @@ class KegiatanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'tanggal' => 'required|date',
+            'tanggal' => 'required|date' . Carbon::today()->toDateString(),
             'uraian' => 'required',
             'output' => 'required',
             'jam_mulai' => 'required',
-            'jam_selesai' => 'required',
+            'jam_selesai' => 'required|after:jam_mulai',
             'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
@@ -66,9 +67,7 @@ class KegiatanController extends Controller
             'foto' => $fotoPath,
         ]);
 
-        return redirect()
-            ->route('kegiatan.index')
-            ->with('success', 'Kegiatan berhasil disimpan');
+        return redirect()->route('kegiatan.index')->with('success', 'Kegiatan berhasil disimpan');
     }
 
     // public function show(Kegiatan $kegiatan)
